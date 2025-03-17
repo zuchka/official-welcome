@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Cormorant Garamond", serif;
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+/* Responsive adjustments for the landing page */
+@media (max-width: 1280px) {
+  .font-\["Cormorant_Garamond"\] {
+    font-size: clamp(2rem, 8vw, 140px);
+    letter-spacing: clamp(0.5rem, 2vw, 35px);
+  }
+}
