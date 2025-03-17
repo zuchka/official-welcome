@@ -2,7 +2,7 @@ import { EmailForm } from "./EmailForm";
 
 export const LandingPage = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center px-5 py-20 bg-gradient-to-b from-gray-100 via-gray-200 to-gray-400">
+    <div className="min-h-screen w-full flex flex-col items-center px-5 py-10 md:py-20 bg-gradient-to-b from-gray-100 via-gray-200 to-gray-400">
       <h1 className="font-['Cormorant_Garamond'] text-[38px] md:text-[60px] lg:text-[90px] font-normal text-[#464646] tracking-[12px] md:tracking-[25px] lg:tracking-[35px] text-center mt-[5px] md:mt-[20px] max-w-full leading-tight">
         OFFICIAL WELCOME
       </h1>
