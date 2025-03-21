@@ -1,12 +1,12 @@
 import { google } from 'googleapis';
 
-export const config = {
+const config = {
   api: {
     bodyParser: true,
   },
 };
 
-export async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -43,4 +43,6 @@ export async function handler(req, res) {
     console.error('Error:', error);
     return res.status(500).json({ error: 'Failed to subscribe' });
   }
-} 
+}
+
+export { config, handler }; 
