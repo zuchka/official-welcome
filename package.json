@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/next": "^9.0.0",
+    "@types/node": "^22.13.10",
+    "googleapis": "^146.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
