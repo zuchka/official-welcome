@@ -1,7 +1,13 @@
 import { google } from 'googleapis';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default async function handler(
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
+
+export async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
@@ -12,10 +18,15 @@ export default async function handler(
   try {
     const { email } = req.body;
 
+    // Properly format the private key by ensuring proper line breaks
+    const privateKey = process.env.GOOGLE_PRIVATE_KEY!
+      .split('\\n')
+      .join('\n');
+
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        private_key: privateKey,
       },
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
