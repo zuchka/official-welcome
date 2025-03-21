@@ -1,24 +1,32 @@
 import { google } from 'googleapis';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export const config = {
-  runtime: 'edge'
+  api: {
+    bodyParser: true,
+  },
 };
 
-export default async function handler(request: Request) {
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' }
-    });
+export async function handler(
+  req: VercelRequest,
+  res: VercelResponse
+) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { email } = await request.json();
+    const { email } = req.body;
+
+    // Properly format the private key by ensuring proper line breaks
+    const privateKey = process.env.GOOGLE_PRIVATE_KEY!
+      .split('\\n')
+      .join('\n');
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        private_key: privateKey,
       },
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
@@ -34,15 +42,9 @@ export default async function handler(request: Request) {
       },
     });
 
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return res.status(200).json({ success: true });
   } catch (error) {
     console.error('Error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to subscribe' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return res.status(500).json({ error: 'Failed to subscribe' });
   }
 } 
