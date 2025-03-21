@@ -13,7 +13,7 @@ export const LandingPage = () => {
         <EmailForm />
       </div>
       <a
-        href="mailto:contact@officialwelcome.com"
+        href="mailto:hi@officialwelcome.art"
         className="font-['Cormorant_Garamond'] text-[24px] md:text-[36px] lg:text-[48px] text-[#5B5B5B] underline mt-10 md:mt-16 lg:mt-20 hover:text-[#464646] transition-colors"
       >
         contact
